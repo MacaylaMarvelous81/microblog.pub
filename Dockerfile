@@ -14,7 +14,7 @@ RUN apt-get install -y --no-install-recommends curl build-essential gcc libffi-d
 # rustc is needed to compile Python packages
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
-RUN curl -sSL https://install.python-poetry.org | python3 - 
+RUN curl -sSL https://install.python-poetry.org | python3 - --version 1.6.1
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 RUN poetry install --only main
@@ -22,12 +22,8 @@ RUN poetry install --only main
 FROM python-base as production
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends libjpeg-dev libxslt1-dev libxml2-dev libxslt-dev
-RUN groupadd --gid 1000 microblogpub \
-  && useradd --uid 1000 --gid microblogpub --shell /bin/bash microblogpub
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 COPY . /app/
-RUN chown -R 1000:1000 /app
-USER microblogpub
 WORKDIR /app
 EXPOSE 8000
 CMD ["./misc/docker_start.sh"]

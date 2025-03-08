@@ -2,12 +2,11 @@ version: "3"
 
 services:
   server:
-    image: microblogpub/microblogpub:latest 
+    image: microblogpub/microblogpub:latest
     container_name: microblogpub
-    user: 1000:1000
     restart: always
     volumes:
       - ./data:/app/data
       - ./app/static:/app/app/static
     ports:
-      - "8000:8000"
+      - "36287:8000"
