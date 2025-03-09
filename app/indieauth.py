@@ -293,7 +293,7 @@ async def indieauth_token_endpoint(
             redirect_uri=redirect_uri,
             code_verifier=code_verifier,
         )
-        if not is_code_valid or (auth_code_request and not auth_code_request.scope):
+        if not is_code_valid:
             return JSONResponse(
                 content={"error": "invalid_grant"},
                 status_code=400,
