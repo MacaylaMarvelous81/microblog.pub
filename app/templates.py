@@ -392,9 +392,7 @@ def _html2text(content: str) -> str:
 
 
 def _replace_emoji(u: str, _) -> str:
-    filename = "-".join(hex(ord(c))[2:] for c in u)
-    return config.EMOJI_TPL.format(base_url=BASE_URL, filename=filename, raw=u)
-
+    return u
 
 def _emojify(text: str, is_local: bool) -> str:
     if not is_local:
