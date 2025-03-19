@@ -1,52 +1,58 @@
-[tool.poetry]
+[project]
 name = "microblogpub"
 version = "2.0.0"
 description = ""
-authors = ["Thomas Sileo <t@a4.io>"]
-license = "AGPL-3.0"
+authors = [{ name = "Thomas Sileo", email = "t@a4.io" }]
+license = { text = "AGPL-3.0-only" }
+requires-python = ">=3.10"
+dependencies = [
+  "Jinja2 (>=3.1.2,<4.0.0)",
+  "fastapi (>=0.78.0,<1.0.0)",
+  "pycryptodome (>=3.14.1,<4.0.0)",
+  "bcrypt (>=3.2.2,<4.0.0)",
+  "itsdangerous (>=2.1.2,<3.0.0)",
+  "python-multipart (>=0.0.5,<1.0.0)",
+  "tomli (>=2.0.1,<3.0.0)",
+  "httpx[http2] (>=0.23.0,<1.0.0)",
+  "SQLAlchemy[asyncio] (>=1.4.39,<2.0.0)",
+  "alembic (>=1.8.0,<2.0.0)",
+  "bleach (>=5.0.0,<6.0.0)",
+  "prompt-toolkit (>=3.0.29,<4.0.0)",
+  "tomli-w (>=1.0.0,<2.0.0)",
+  "python-dateutil (>=2.8.2,<3.0.0)",
+  "bs4 (>=0.0.1,<1.0.0)",
+  "html5lib (>=1.1,<2.0)",
+  "mf2py (>=1.1.2,<2.0.0)",
+  "Pygments (>=2.12.0,<3.0.0)",
+  "loguru (>=0.6.0,<1.0.0)",
+  "Pillow (>=9.1.1,<10.0.0)",
+  "blurhash-python (>=1.1.3,<2.0.0)",
+  "html2text (>=2020.1.16,<2021.0.0)",
+  "feedgen (>=0.9.0,<1.0.0)",
+  "emoji (>=1.7.0,<2.0.0)",
+  "PyLD (>=2.0.3,<3.0.0)",
+  "aiosqlite (>=0.17.0,<1.0.0)",
+  "cachetools (>=5.2.0,<6.0.0)",
+  "humanize (>=4.2.3,<5.0.0)",
+  "tabulate (>=0.8.10,<1.0.0)",
+  "asgiref (>=3.5.2,<4.0.0)",
+  "supervisor (>=4.2.4,<5.0.0)",
+  "invoke (>=1.7.1,<2.0.0)",
+  "boussole (>=2.0.0,<3.0.0)",
+  "uvicorn[standard] (>=0.18.3,<1.0.0)",
+  "Brotli (>=1.0.9,<2.0.0)",
+  "greenlet (>=1.1.3,<2.0.0)",
+  "mistletoe (>=0.9.0,<1.0.0)",
+  "Pebble (>=5.0.2,<6.0.0)"
+]
+
+[tool.poetry]
+package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.10"
-Jinja2 = "^3.1.2"
-fastapi = "^0.78.0"
-pycryptodome = "^3.14.1"
-bcrypt = "^3.2.2"
-itsdangerous = "^2.1.2"
-python-multipart = "^0.0.5"
-tomli = "^2.0.1"
-httpx = {version = "0.23.0", extras = ["http2"]}
-SQLAlchemy = {extras = ["asyncio"], version = "^1.4.39"}
-alembic = "^1.8.0"
-bleach = "^5.0.0"
-prompt-toolkit = "^3.0.29"
-tomli-w = "^1.0.0"
-python-dateutil = "^2.8.2"
-bs4 = "^0.0.1"
-html5lib = "^1.1"
-mf2py = "^1.1.2"
-Pygments = "^2.12.0"
-loguru = "^0.6.0"
-Pillow = "^9.1.1"
-blurhash-python = "^1.1.3"
-html2text = "^2020.1.16"
-feedgen = "^0.9.0"
-emoji = "^1.7.0"
-PyLD = "^2.0.3"
-aiosqlite = "^0.17.0"
-cachetools = "^5.2.0"
-humanize = "^4.2.3"
-tabulate = "^0.8.10"
-asgiref = "^3.5.2"
-supervisor = "^4.2.4"
-invoke = "^1.7.1"
-boussole = "^2.0.0"
-uvicorn = {extras = ["standard"], version = "^0.18.3"}
-Brotli = "^1.0.9"
-greenlet = "^1.1.3"
-mistletoe = "^0.9.0"
-Pebble = "^5.0.2"
+python = ">=3.10,<4.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 black = "^22.3.0"
 flake8 = "^4.0.1"
 mypy = "^0.960"
