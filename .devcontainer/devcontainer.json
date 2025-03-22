@@ -6,6 +6,10 @@
             "packages": "libjpeg-dev"
         },
         "ghcr.io/devcontainers-extra/features/caddy:1": {},
-        "ghcr.io/devcontainers-extra/features/poetry:2": {}
-    }
+        "ghcr.io/devcontainers-extra/features/poetry:2": {},
+        "./features/caddy-config": {
+            "host": "super-doodle-4gr679jv7r29rx-8080.app.github.dev"
+        }
+    },
+    "forwardPorts": [8080]
 }

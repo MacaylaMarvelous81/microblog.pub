@@ -1,0 +1,14 @@
+{
+	"name": "Caddy Config",
+	"id": "caddy-config",
+	"version": "1.0.0",
+	"description": "Configures a Caddy server to serve as a reverse proxy.",
+	"options": {
+		"host": {
+			"type": "string",
+			"default": "localhost",
+			"description": "The hostname that the server will be accessible from."
+		}
+	},
+	"entrypoint": "/usr/local/share/caddy-init.sh"
+}
