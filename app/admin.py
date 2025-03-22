@@ -7,6 +7,7 @@ from fastapi import Cookie
 from fastapi import Depends
 from fastapi import Form
 from fastapi import Request
+from fastapi import Response
 from fastapi import UploadFile
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
@@ -93,7 +94,7 @@ async def get_lookup(
     request: Request,
     query: str | None = None,
     db_session: AsyncSession = Depends(get_db_session),
-) -> templates.TemplateResponse | RedirectResponse:
+) -> Response:
     error = None
     ap_object = None
     actors_metadata = {}
@@ -1228,7 +1229,7 @@ async def admin_actions_vote(
 async def login(
     request: Request,
     db_session: AsyncSession = Depends(get_db_session),
-) -> templates.TemplateResponse | RedirectResponse:
+) -> Response:
     if is_current_user_admin(request):
         return RedirectResponse(request.url_for("admin_stream"), status_code=302)
 
@@ -1250,7 +1251,7 @@ async def login_validation(
     redirect: str | None = Form(None),
     csrf_check: None = Depends(verify_csrf_token),
     db_session: AsyncSession = Depends(get_db_session),
-) -> RedirectResponse | templates.TemplateResponse:
+) -> Response:
     if not verify_password(password):
         logger.warning("Invalid password")
         return await templates.render_template(

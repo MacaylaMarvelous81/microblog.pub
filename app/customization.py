@@ -7,6 +7,7 @@ from typing import Callable
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import Request
+from fastapi import Response
 from loguru import logger
 from starlette.responses import JSONResponse
 
@@ -85,7 +86,7 @@ def _custom_page_handler(path: str, html_page: HTMLPage) -> Any:
     async def _handler(
         request: Request,
         db_session: AsyncSession = Depends(get_db_session),
-    ) -> templates.TemplateResponse | ActivityPubResponse:
+    ) -> Response:
         if path == "/" and is_activitypub_requested(request):
             return ActivityPubResponse(LOCAL_ACTOR.ap_actor)
 

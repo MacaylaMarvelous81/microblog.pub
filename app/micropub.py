@@ -3,6 +3,7 @@ from typing import Any
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import Request
+from fastapi import Response
 from fastapi.responses import JSONResponse
 from fastapi.responses import RedirectResponse
 from loguru import logger
@@ -24,9 +25,9 @@ async def micropub_endpoint(
     request: Request,
     access_token_info: AccessTokenInfo = Depends(verify_access_token),
     db_session: AsyncSession = Depends(get_db_session),
-) -> dict[str, Any] | JSONResponse:
+) -> JSONResponse:
     if request.query_params.get("q") == "config":
-        return {}
+        return JSONResponse(content={})
 
     elif request.query_params.get("q") == "source":
         url = request.query_params.get("url")
@@ -42,18 +43,20 @@ async def micropub_endpoint(
 
         extra_props: dict[str, list[str]] = {}
 
-        return {
-            "type": ["h-entry"],
-            "properties": {
-                "published": [
-                    outbox_object.ap_published_at.isoformat()  # type: ignore
-                ],
-                "content": [outbox_object.source],
-                **extra_props,
-            },
-        }
+        return JSONResponse(
+            content={
+                "type": ["h-entry"],
+                "properties": {
+                    "published": [
+                        outbox_object.ap_published_at.isoformat()  # type: ignore
+                    ],
+                    "content": [outbox_object.source],
+                    **extra_props,
+                },
+            }
+        )
 
-    return {}
+    return JSONResponse(content={})
 
 
 def _prop_get(dat: dict[str, Any], key: str) -> str:
@@ -69,7 +72,7 @@ async def post_micropub_endpoint(
     request: Request,
     access_token_info: AccessTokenInfo = Depends(verify_access_token),
     db_session: AsyncSession = Depends(get_db_session),
-) -> RedirectResponse | JSONResponse:
+) -> Response:
     form_data = await request.form()
     is_json = False
     if not form_data:

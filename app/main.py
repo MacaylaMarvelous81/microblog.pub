@@ -227,7 +227,7 @@ logger.add(sys.stdout, format=logger_format, level="DEBUG" if DEBUG else "INFO")
 async def custom_http_exception_handler(
     request: Request,
     exc: StarletteHTTPException,
-) -> templates.TemplateResponse | JSONResponse:
+) -> Response:
     accept_value = request.headers.get("accept")
     if (
         accept_value
@@ -287,7 +287,7 @@ async def index(
     request: Request,
     db_session: AsyncSession = Depends(get_db_session),
     page: int | None = None,
-) -> templates.TemplateResponse | ActivityPubResponse:
+) -> Response:
     if is_activitypub_requested(request):
 
         return ActivityPubResponse(LOCAL_ACTOR.ap_actor)
@@ -347,7 +347,7 @@ async def articles(
     db_session: AsyncSession = Depends(get_db_session),
     _: httpsig.HTTPSigInfo = Depends(httpsig.httpsig_checker),
     page: int | None = None,
-) -> templates.TemplateResponse | ActivityPubResponse:
+) -> Response:
     # TODO: special ActivityPub collection for Article
 
     where = (
@@ -463,7 +463,7 @@ async def followers(
     prev_cursor: str | None = None,
     db_session: AsyncSession = Depends(get_db_session),
     _: httpsig.HTTPSigInfo = Depends(httpsig.httpsig_checker),
-) -> ActivityPubResponse | templates.TemplateResponse:
+) -> Response:
     if is_activitypub_requested(request):
         maybe_access_token_info = await indieauth.check_access_token(
             request,
@@ -527,7 +527,7 @@ async def following(
     prev_cursor: str | None = None,
     db_session: AsyncSession = Depends(get_db_session),
     _: httpsig.HTTPSigInfo = Depends(httpsig.httpsig_checker),
-) -> ActivityPubResponse | templates.TemplateResponse:
+) -> Response:
     if is_activitypub_requested(request):
         maybe_access_token_info = await indieauth.check_access_token(
             request,
@@ -811,7 +811,7 @@ async def outbox_by_public_id(
     request: Request,
     db_session: AsyncSession = Depends(get_db_session),
     httpsig_info: httpsig.HTTPSigInfo = Depends(httpsig.httpsig_checker),
-) -> ActivityPubResponse | templates.TemplateResponse | RedirectResponse:
+) -> Response:
     maybe_object = (
         (
             await db_session.execute(
@@ -941,7 +941,7 @@ async def article_by_slug(
     request: Request,
     db_session: AsyncSession = Depends(get_db_session),
     httpsig_info: httpsig.HTTPSigInfo = Depends(httpsig.httpsig_checker),
-) -> ActivityPubResponse | templates.TemplateResponse | RedirectResponse:
+) -> Response:
     maybe_object = await boxes.get_outbox_object_by_slug_and_short_id(
         db_session, slug, short_id
     )
@@ -1013,7 +1013,7 @@ async def tag_by_name(
     request: Request,
     db_session: AsyncSession = Depends(get_db_session),
     _: httpsig.HTTPSigInfo = Depends(httpsig.httpsig_checker),
-) -> ActivityPubResponse | templates.TemplateResponse:
+) -> Response:
     where = [
         models.TaggedOutboxObject.tag == tag.lower(),
         models.OutboxObject.visibility == ap.VisibilityEnum.PUBLIC,
@@ -1381,7 +1381,7 @@ async def serve_proxy_media(
     sig: str,
     encoded_url: str,
     background_tasks: fastapi.BackgroundTasks,
-) -> StreamingResponse | PlainTextResponse:
+) -> Response:
     # Decode the base64-encoded URL
     url = base64.urlsafe_b64decode(encoded_url).decode()
     check_url(url)
