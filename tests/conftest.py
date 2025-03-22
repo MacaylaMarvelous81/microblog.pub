@@ -35,5 +35,5 @@ def db() -> Generator:
 
 @pytest.fixture
 def client(db) -> Generator:
-    with TestClient(app) as c:
+    with TestClient(app, follow_redirects=False) as c:
         yield c
