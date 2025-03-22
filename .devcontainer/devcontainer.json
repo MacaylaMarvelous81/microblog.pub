@@ -1,0 +1,11 @@
+{
+    "name": "microblog.pub",
+    "image": "mcr.microsoft.com/devcontainers/python:3.12",
+    "features": {
+        "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+            "packages": "libjpeg-dev"
+        },
+        "ghcr.io/devcontainers-extra/features/caddy:1": {},
+        "ghcr.io/devcontainers-extra/features/poetry:2": {}
+    }
+}
