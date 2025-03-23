@@ -170,6 +170,7 @@ async def admin_new(
 ) -> templates.TemplateResponse:
     content = ""
     content_warning = None
+    title = None
     in_reply_to_object = None
     edit_target_object = None
     if in_reply_to:
@@ -210,6 +211,8 @@ async def admin_new(
         content = edit_target_object.source
         if edit_target_object.summary:
             content_warning = edit_target_object.summary
+        if edit_target_object.name:
+            title = edit_target_object.name
 
     return await templates.render_template(
         db_session,
@@ -220,6 +223,7 @@ async def admin_new(
             "edit_target_object": edit_target_object,
             "content": content,
             "content_warning": content_warning,
+            "title": title,
             "visibility_choices": [
                 (v.name, ap.VisibilityEnum.get_display_name(v))
                 for v in ap.VisibilityEnum

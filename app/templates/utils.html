@@ -252,6 +252,7 @@
 <form action="{{ BASE_URL }}/admin/new" method="GET">
     <input type="hidden" name="edit_target" value="{{ ap_object.ap_id }}">
     <input type="hidden" name="with_visibility" value="{{ ap_object.visibility.name }}">
+    <input type="hidden" name="type" value="{{ ap_object.ap_type }}">
     <button type="submit">edit</button>
 </form>
 {% endblock %}

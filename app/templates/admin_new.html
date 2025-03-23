@@ -12,6 +12,11 @@
 {{ utils.display_object(in_reply_to_object) }}
 {% endif %}
 
+{% if edit_target_object %}
+<div class="actor-action">Editing:</div>
+{{ utils.display_object(edit_target_object) }}
+{% endif %}
+
 <div class="box">
 <nav class="flexbox">
 <ul>
@@ -25,7 +30,7 @@
 </nav>
 
 
-<form class="form admin-new" action="{{ request.url_for("admin_actions_new") }}" enctype="multipart/form-data" method="POST">
+<form class="form admin-new" action="{{ request.url_for("admin_actions_edit") if edit_target_object else request.url_for("admin_actions_new") }}" enctype="multipart/form-data" method="POST">
     {{ utils.embed_csrf_token() }}
     {{ utils.embed_redirect_url() }}
     <p>
@@ -38,7 +43,7 @@
 
     {% if request.query_params.type == "Article" %}
     <p>
-        <input type="text" class="width-95" name="name" placeholder="Title">
+        <input type="text" class="width-95" name="name" placeholder="Title" value="{{ title }}">
     </p>
     {% endif %}
 
