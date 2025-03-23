@@ -165,11 +165,13 @@ async def admin_new(
     in_reply_to: str | None = None,
     with_content: str | None = None,
     with_visibility: str | None = None,
+    edit_target: str | None = None,
     db_session: AsyncSession = Depends(get_db_session),
 ) -> templates.TemplateResponse:
     content = ""
     content_warning = None
     in_reply_to_object = None
+    edit_target_object = None
     if in_reply_to:
         in_reply_to_object = await boxes.get_anybox_object_by_ap_id(
             db_session, in_reply_to
@@ -201,6 +203,13 @@ async def admin_new(
             content_warning = in_reply_to_object.summary
     elif with_content:
         content += f"{with_content} "
+    elif edit_target:
+        edit_target_object = await boxes.get_outbox_object_by_ap_id(
+            db_session, edit_target
+        )
+        content = edit_target_object.source
+        if edit_target_object.summary:
+            content_warning = edit_target_object.summary
 
     return await templates.render_template(
         db_session,
@@ -208,6 +217,7 @@ async def admin_new(
         "admin_new.html",
         {
             "in_reply_to_object": in_reply_to_object,
+            "edit_target_object": edit_target_object,
             "content": content,
             "content_warning": content_warning,
             "visibility_choices": [
