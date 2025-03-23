@@ -1207,6 +1207,11 @@ async def admin_actions_new(
             db_session,
             ap_id=edit_target,
             source=content,
+            content_warning=content_warning or None,
+            is_sensitive=True if content_warning else is_sensitive,
+            poll_type=poll_type,
+            poll_answers=poll_answers,
+            poll_duration_in_minutes=poll_duration_in_minutes,
         )
     else:
         public_id, _ = await boxes.send_create(

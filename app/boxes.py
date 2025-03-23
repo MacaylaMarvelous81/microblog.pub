@@ -826,6 +826,11 @@ async def send_update(
     db_session: AsyncSession,
     ap_id: str,
     source: str,
+    content_warning: str | None = None,
+    is_sensitive: bool = False,
+    poll_type: str | None = None,
+    poll_answers: list[str] | None = None,
+    poll_duration_in_minutes: int | None = None,
 ) -> str:
     outbox_object = await get_outbox_object_by_ap_id(db_session, ap_id)
     if not outbox_object:
@@ -846,6 +851,35 @@ async def send_update(
     updated = now().replace(microsecond=0).isoformat().replace("+00:00", "Z")
     content, tags, mentioned_actors = await markdownify(db_session, source)
 
+    extra_obj_attrs = {}
+    if outbox_object.ap_type == "Question":
+        if not poll_answers or len(poll_answers) < 2:
+            raise ValueError("Question must have at least 2 possible answers")
+
+        if not poll_type:
+            raise ValueError("Mising poll_type")
+
+        if not poll_duration_in_minutes:
+            raise ValueError("Missing poll_duration_in_minutes")
+
+        extra_obj_attrs = {
+            "votersCount": 0,
+            "endTime": (now() + timedelta(minutes=poll_duration_in_minutes))
+            .isoformat()
+            .replace("+00:00", "Z"),
+            poll_type: [
+                {
+                    "type": "Note",
+                    "name": answer,
+                    "replies": {"type": "Collection", "totalItems": 0},
+                }
+                for answer in poll_answers
+            ],
+        }
+    elif outbox_object.ap_type == "Article":
+        # TODO: editable article names
+        extra_obj_attrs = {"name": outbox_object.name}
+
     note = {
         "@context": ap.AS_EXTENDED_CTX,
         "type": outbox_object.ap_type,
@@ -859,11 +893,12 @@ async def send_update(
         "conversation": outbox_object.ap_context,
         "url": outbox_object.url,
         "tag": tags,
-        "summary": outbox_object.summary,
+        "summary": content_warning,
         "inReplyTo": outbox_object.in_reply_to,
-        "sensitive": outbox_object.sensitive,
+        "sensitive": is_sensitive,
         "attachment": outbox_object.ap_object["attachment"],
         "updated": updated,
+        **extra_obj_attrs,  # type: ignore
     }
 
     outbox_object.ap_object = note

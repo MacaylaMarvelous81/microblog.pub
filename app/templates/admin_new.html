@@ -34,7 +34,7 @@
     {{ utils.embed_csrf_token() }}
     {{ utils.embed_redirect_url() }}
     <p>
-    <select name="visibility">
+    <select name="visibility" {% if edit_target_object %}readonly{% endif %}>
         {% for (k, v) in visibility_choices %}
         <option value="{{ k }}" {% if visibility == k or in_reply_to_object and in_reply_to_object.visibility.name == k %}selected{% endif %}>{{ v }}</option>
         {% endfor %}
@@ -43,7 +43,7 @@
 
     {% if request.query_params.type == "Article" %}
     <p>
-        <input type="text" class="width-95" name="name" placeholder="Title" value="{{ title }}">
+        <input type="text" class="width-95" name="name" placeholder="Title" {% if title %}value="{{ title }}"{% endif %} {% if edit_target_object %}readonly{% endif %}>
     </p>
     {% endif %}
 
