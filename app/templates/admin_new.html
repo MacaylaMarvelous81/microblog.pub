@@ -30,7 +30,7 @@
 </nav>
 
 
-<form class="form admin-new" action="{{ request.url_for("admin_actions_edit") if edit_target_object else request.url_for("admin_actions_new") }}" enctype="multipart/form-data" method="POST">
+<form class="form admin-new" action="{{ request.url_for("admin_actions_new") }}" enctype="multipart/form-data" method="POST">
     {{ utils.embed_csrf_token() }}
     {{ utils.embed_redirect_url() }}
     <p>
@@ -86,6 +86,7 @@
         <input type="checkbox" name="is_sensitive" id="is_sensitive"> <label for="is_sensitive">Mark attachment(s) as sensitive</label>
     </p>
     <input type="hidden" name="in_reply_to" value="{{ request.query_params.in_reply_to }}">
+    <input type="hidden" name="edit_target" value="{{ request.query_params.edit_target }}">
     <p>
         <input id="files" name="files" type="file" class="width-95" multiple>
     </p>

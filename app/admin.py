@@ -1153,6 +1153,7 @@ async def admin_actions_new(
     content: str | None = Form(None),
     redirect_url: str = Form(),
     in_reply_to: str | None = Form(None),
+    edit_target: str | None = Form(None),
     content_warning: str | None = Form(None),
     is_sensitive: bool = Form(False),
     visibility: str = Form(),
@@ -1200,20 +1201,29 @@ async def admin_actions_new(
     elif name:
         ap_type = "Article"
 
-    public_id, _ = await boxes.send_create(
-        db_session,
-        ap_type=ap_type,
-        source=content,
-        uploads=uploads,
-        in_reply_to=in_reply_to or None,
-        visibility=ap.VisibilityEnum[visibility],
-        content_warning=content_warning or None,
-        is_sensitive=True if content_warning else is_sensitive,
-        poll_type=poll_type,
-        poll_answers=poll_answers,
-        poll_duration_in_minutes=poll_duration_in_minutes,
-        name=name,
-    )
+    public_id = None
+    if edit_target:
+        public_id = await boxes.send_update(
+            db_session,
+            ap_id=edit_target,
+            source=content,
+        )
+    else:
+        public_id, _ = await boxes.send_create(
+            db_session,
+            ap_type=ap_type,
+            source=content,
+            uploads=uploads,
+            in_reply_to=in_reply_to or None,
+            visibility=ap.VisibilityEnum[visibility],
+            content_warning=content_warning or None,
+            is_sensitive=True if content_warning else is_sensitive,
+            poll_type=poll_type,
+            poll_answers=poll_answers,
+            poll_duration_in_minutes=poll_duration_in_minutes,
+            name=name,
+        )
+    
     return RedirectResponse(
         request.url_for("outbox_by_public_id", public_id=public_id),
         status_code=302,
