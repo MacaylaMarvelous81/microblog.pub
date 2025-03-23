@@ -34,11 +34,14 @@
     {{ utils.embed_csrf_token() }}
     {{ utils.embed_redirect_url() }}
     <p>
-    <select name="visibility" {% if edit_target_object %}readonly{% endif %}>
+    <select name="visibility" {% if edit_target_object %}disabled{% endif %}>
         {% for (k, v) in visibility_choices %}
         <option value="{{ k }}" {% if visibility == k or in_reply_to_object and in_reply_to_object.visibility.name == k %}selected{% endif %}>{{ v }}</option>
         {% endfor %}
     </select>
+    {% if edit_target_object %}
+    <input type="hidden" name="visibility" value="{{ visibility }}">
+    {% endif %}
     </p>
 
     {% if request.query_params.type == "Article" %}
