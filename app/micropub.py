@@ -166,6 +166,6 @@ async def post_micropub_endpoint(
         content={},
         status_code=201,
         headers={
-            "Location": request.url_for("outbox_by_public_id", public_id=public_id)
+            "Location": str(request.url_for("outbox_by_public_id", public_id=public_id))
         },
     )

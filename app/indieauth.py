@@ -39,13 +39,13 @@ async def well_known_authorization_server(
 ) -> dict[str, Any]:
     return {
         "issuer": config.ID + "/",
-        "authorization_endpoint": request.url_for("indieauth_authorization_endpoint"),
-        "token_endpoint": request.url_for("indieauth_token_endpoint"),
+        "authorization_endpoint": str(request.url_for("indieauth_authorization_endpoint")),
+        "token_endpoint": str(request.url_for("indieauth_token_endpoint")),
         "code_challenge_methods_supported": ["S256"],
-        "revocation_endpoint": request.url_for("indieauth_revocation_endpoint"),
+        "revocation_endpoint": str(request.url_for("indieauth_revocation_endpoint")),
         "revocation_endpoint_auth_methods_supported": ["none"],
-        "registration_endpoint": request.url_for("oauth_registration_endpoint"),
-        "introspection_endpoint": request.url_for("oauth_introspection_endpoint"),
+        "registration_endpoint": str(request.url_for("oauth_registration_endpoint")),
+        "introspection_endpoint": str(request.url_for("oauth_introspection_endpoint")),
     }
 
 
