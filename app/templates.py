@@ -343,6 +343,13 @@ def _clean_html_wm(html: str) -> str:
         strip=True,
     )
 
+def _has_disallowed_tags(html: str) -> bool:
+    soup = BeautifulSoup(html, "html.parser")
+    for tag in soup.find_all(True):
+        if tag.name not in ALLOWED_TAGS:
+            return True
+    return False
+
 
 def _timeago(original_dt: datetime) -> str:
     dt = original_dt
@@ -419,6 +426,7 @@ _templates.env.filters["domain"] = _filter_domain
 _templates.env.filters["media_proxy_url"] = _media_proxy_url
 _templates.env.filters["clean_html"] = _clean_html
 _templates.env.filters["clean_html_wm"] = _clean_html_wm
+_templates.env.filters["has_disallowed_tags"] = _has_disallowed_tags
 _templates.env.filters["timeago"] = _timeago
 _templates.env.filters["format_date"] = _format_date
 _templates.env.filters["has_media_type"] = _has_media_type
