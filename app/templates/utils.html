@@ -665,8 +665,8 @@
     {{ display_attachments(object) }}
     </div>
 
-    {% if object.content | has_disallowed_tags %}
-    <span class="muted">this object uses disallowed HTML tags</div>
+    {% if object | has_disallowed_tags %}
+    <span class="muted">this object uses restricted HTML tags</span>
     {% endif %}
 
     <nav class="flexbox activity-bar">

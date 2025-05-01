@@ -37,6 +37,7 @@ from app.utils import privacy_replace
 from app.utils.datetime import now
 from app.utils.highlight import HIGHLIGHT_CSS
 from app.utils.highlight import highlight
+from app.utils.text import clean_if
 
 _templates = Jinja2Templates(
     directory=["data/templates", "app/templates"],  # type: ignore  # bad typing
@@ -316,7 +317,8 @@ def _clean_html(html: str, note: Object) -> str:
     try:
         return _emojify(
             _replace_custom_emojis(
-                bleach.clean(
+                clean_if(
+                    not note.ap_id.startswith(BASE_URL),
                     privacy_replace.replace_content(
                         _update_inline_imgs(highlight(html))
                     ),
@@ -343,7 +345,15 @@ def _clean_html_wm(html: str) -> str:
         strip=True,
     )
 
-def _has_disallowed_tags(html: str) -> bool:
+def _has_disallowed_tags(note: Object) -> bool:
+    if note.is_from_outbox:
+        return False
+    
+    html = note.content
+    if html is None:
+        logger.error(f"{html=}")
+        return False
+    
     soup = BeautifulSoup(html, "html.parser")
     for tag in soup.find_all(True):
         if tag.name not in ALLOWED_TAGS:
