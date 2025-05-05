@@ -9,6 +9,7 @@ $form-text-color: #333;
 $muted-color: #555; // solarized comment text
 $primary-button-text-color: #fff;
 $code-highlight-background: #f0f0f0;
+$base-font-size: 20px;
 
 // Load custom theme
 @import "theme.scss";
@@ -105,7 +106,7 @@ blockquote {
 
 body {
   font-family: $font-stack;
-  font-size: 20px;
+  font-size: $base-font-size;
   line-height: 32px;
   background: $background;
   color: $text-color;
@@ -170,7 +171,7 @@ code, pre {
 
 .form {
     input, select, textarea {
-        font-size: 20px;
+        font-size: $base-font-size;
         border: 0;
         padding: 5px;
         background: $form-background-color;
@@ -180,7 +181,7 @@ code, pre {
         }
     }
     input[type=submit] {
-        font-size: 20px;
+        font-size: $base-font-size;
         outline: none;
         background: $primary-color;
         color: $primary-button-text-color;
@@ -294,7 +295,7 @@ footer {
 }
 
 @mixin admin-button() {
-    font-size: 20px;
+    font-size: $base-font-size;
     line-height: 32px;
     font-family: $font-stack;
     background: $form-background-color;
