@@ -6,5 +6,6 @@ services:
     volumes:
       - ./data:/app/data
       - ./app/static:/app/app/static
-    ports:
-      - "36287:8000"
+      - ./sockets:/run/sockets
+    environment:
+      UVICORN_UDS: /run/sockets/uvicorn.sock

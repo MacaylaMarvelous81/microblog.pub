@@ -159,17 +159,18 @@ class CustomMiddleware:
         # Make loguru ouput the request ID on every log statement within
         # the request
         with logger.contextualize(request_id=request_id):
-            client_host, client_port = scope["client"]  # type: ignore
-            scheme = scope["scheme"]
-            server_host, server_port = scope["server"]  # type: ignore
+            # client_host, client_port = scope["client"]  # type: ignore
+            # scheme = scope["scheme"]
+            # server_host, server_port = scope["server"]  # type: ignore
             request_method = scope["method"]
             request_path = scope["path"]
             headers = Headers(raw=scope["headers"])  # type: ignore
             user_agent = headers.get("user-agent")
             logger.info(
-                f"{client_host}:{client_port} - "
+                # f"{client_host}:{client_port} - "
                 f"{request_method} "
-                f"{scheme}://{server_host}:{server_port}{request_path} - "
+                # f"{scheme}://{server_host}:{server_port}{request_path} - "
+                f"{request_path} - "
                 f'"{user_agent}"'
             )
             try:
