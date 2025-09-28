@@ -422,3 +422,7 @@ def import_mastodon_following_accounts(ctx, path):
 
     count = asyncio.run(_import_following())
     logger.info(f"Import done, {count} follow requests sent")
+
+@task
+def setup_webauthn(ctx):
+    run("PYTHONPATH=. python scripts/webauthn_setup.py", pty=True, echo=True)
