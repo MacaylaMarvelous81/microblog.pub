@@ -1,11 +1,13 @@
 import re
 import typing
+import latex2mathml.converter
 
 from loguru import logger
 from mistletoe import Document  # type: ignore
 from mistletoe.block_token import CodeFence  # type: ignore
 from mistletoe.html_renderer import HTMLRenderer  # type: ignore
 from mistletoe.span_token import SpanToken  # type: ignore
+from mistletoe.block_token import BlockToken  # type: ignore
 from pygments.formatters import HtmlFormatter  # type: ignore
 from pygments.lexers import get_lexer_by_name as get_lexer  # type: ignore
 from pygments.util import ClassNotFound  # type: ignore
@@ -26,6 +28,8 @@ _MENTION_REGEX = re.compile(r"(@[\d\w_.+-]+@[\d\w-]+\.[\d\w\-.]+)")
 _URL_REGEX = re.compile(
     "(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))"  # noqa: E501
 )
+_INLINE_MATH_REGEX = re.compile(r"\$(.+?)\$")
+_BLOCK_MATH_REGEX = re.compile(r"^( {0,3})(\${2,})")
 
 
 class AutoLink(SpanToken):
@@ -54,6 +58,32 @@ class Hashtag(SpanToken):
     def __init__(self, match_obj: re.Match) -> None:
         self.target = match_obj.group()
 
+class InlineMath(SpanToken):
+    parse_inner = False
+    precedence = 5
+    pattern = _INLINE_MATH_REGEX
+
+    def __init__(self, match_obj: re.Match) -> None:
+        self.target = match_obj.group(1)
+
+class BlockMath(BlockToken):
+    def __init__(self, math_src):
+        self.math_src = math_src
+    
+    @classmethod
+    def start(cls, line):
+        return bool(_BLOCK_MATH_REGEX.match(line))
+    
+    @classmethod
+    def read(cls, lines):
+        next(lines)
+        src_buffer = ""
+        for line in lines:
+            if _BLOCK_MATH_REGEX.match(line):
+                break
+            src_buffer += line + "\n"
+        return src_buffer
+
 
 class CustomRenderer(HTMLRenderer):
     def __init__(
@@ -61,12 +91,16 @@ class CustomRenderer(HTMLRenderer):
         mentioned_actors: dict[str, "Actor"] = {},
         enable_mentionify: bool = True,
         enable_hashtagify: bool = True,
+        enable_math: bool = True,
     ) -> None:
         extra_tokens = []
         if enable_mentionify:
             extra_tokens.append(Mention)
         if enable_hashtagify:
             extra_tokens.append(Hashtag)
+        if enable_math:
+            extra_tokens.append(InlineMath)
+            extra_tokens.append(BlockMath)
         super().__init__(AutoLink, *extra_tokens)
 
         self.tags: list[dict[str, str]] = []
@@ -114,6 +148,13 @@ class CustomRenderer(HTMLRenderer):
 
         code = token.children[0].content
         return f"<pre><code{lexer_attr}>\n{code}\n</code></pre>"
+    
+    def render_inline_math(self, token: InlineMath) -> str:
+        return latex2mathml.converter.convert(token.target)
+    
+    def render_block_math(self, token: BlockMath) -> str:
+        print(token.math_src)
+        return latex2mathml.converter.convert(token.math_src, display="block")
 
 
 async def _prefetch_mentioned_actors(
@@ -165,6 +206,7 @@ def hashtagify(
         mentioned_actors={},
         enable_mentionify=False,
         enable_hashtagify=True,
+        enable_math=False,
     ) as renderer:
         rendered_content = renderer.render(Document(content))
         tags.extend(renderer.tags)
@@ -180,6 +222,7 @@ async def markdownify(
     content: str,
     enable_mentionify: bool = True,
     enable_hashtagify: bool = True,
+    enable_math: bool = True,
 ) -> tuple[str, list[dict[str, str]], list["Actor"]]:
     """
     >>> content, tags = markdownify("Hello")
@@ -194,6 +237,7 @@ async def markdownify(
         mentioned_actors=mentioned_actors,
         enable_mentionify=enable_mentionify,
         enable_hashtagify=enable_hashtagify,
+        enable_math=enable_math,
     ) as renderer:
         rendered_content = renderer.render(Document(content))
         tags.extend(renderer.tags)
