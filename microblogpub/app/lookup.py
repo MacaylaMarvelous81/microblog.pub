@@ -1,12 +1,12 @@
 import mf2py  # type: ignore
 
-from app import activitypub as ap
-from app import webfinger
-from app.actor import Actor
-from app.actor import RemoteActor
-from app.ap_object import RemoteObject
-from app.database import AsyncSession
-from app.source import _MENTION_REGEX
+from microblogpub.app import activitypub as ap
+from microblogpub.app import webfinger
+from microblogpub.app.actor import Actor
+from microblogpub.app.actor import RemoteActor
+from microblogpub.app.ap_object import RemoteObject
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.source import _MENTION_REGEX
 
 
 async def lookup(db_session: AsyncSession, query: str) -> Actor | RemoteObject:

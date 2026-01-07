@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from typing import Any
 from urllib.parse import urlparse
 
-from app.utils import microformats
-from app.utils.url import make_abs
+from microblogpub.app.utils import microformats
+from microblogpub.app.utils.url import make_abs
 
 
 @dataclass

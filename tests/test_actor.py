@@ -5,9 +5,9 @@ from sqlalchemy import func
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import models
-from app.actor import fetch_actor
-from app.database import AsyncSession
+from microblogpub.app import models
+from microblogpub.app.actor import fetch_actor
+from microblogpub.app.database import AsyncSession
 from tests import factories
 
 

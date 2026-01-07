@@ -16,36 +16,36 @@ from sqlalchemy import update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
-from app import activitypub as ap
-from app import config
-from app import ldsig
-from app import models
-from app.actor import LOCAL_ACTOR
-from app.actor import Actor
-from app.actor import RemoteActor
-from app.actor import fetch_actor
-from app.actor import save_actor
-from app.actor import update_actor_if_needed
-from app.ap_object import RemoteObject
-from app.config import BASE_URL
-from app.config import ID
-from app.config import MANUALLY_APPROVES_FOLLOWERS
-from app.config import set_moved_to
-from app.config import stream_visibility_callback
-from app.customization import ObjectInfo
-from app.database import AsyncSession
-from app.outgoing_activities import new_outgoing_activity
-from app.source import dedup_tags
-from app.source import markdownify
-from app.uploads import upload_to_attachment
-from app.utils import opengraph
-from app.utils import webmentions
-from app.utils.datetime import as_utc
-from app.utils.datetime import now
-from app.utils.datetime import parse_isoformat
-from app.utils.facepile import WebmentionReply
-from app.utils.text import slugify
-from app.utils.url import is_hostname_blocked
+from microblogpub.app import activitypub as ap
+from microblogpub.app import config
+from microblogpub.app import ldsig
+from microblogpub.app import models
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.actor import Actor
+from microblogpub.app.actor import RemoteActor
+from microblogpub.app.actor import fetch_actor
+from microblogpub.app.actor import save_actor
+from microblogpub.app.actor import update_actor_if_needed
+from microblogpub.app.ap_object import RemoteObject
+from microblogpub.app.config import BASE_URL
+from microblogpub.app.config import ID
+from microblogpub.app.config import MANUALLY_APPROVES_FOLLOWERS
+from microblogpub.app.config import set_moved_to
+from microblogpub.app.config import stream_visibility_callback
+from microblogpub.app.customization import ObjectInfo
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.outgoing_activities import new_outgoing_activity
+from microblogpub.app.source import dedup_tags
+from microblogpub.app.source import markdownify
+from microblogpub.app.uploads import upload_to_attachment
+from microblogpub.app.utils import opengraph
+from microblogpub.app.utils import webmentions
+from microblogpub.app.utils.datetime import as_utc
+from microblogpub.app.utils.datetime import now
+from microblogpub.app.utils.datetime import parse_isoformat
+from microblogpub.app.utils.facepile import WebmentionReply
+from microblogpub.app.utils.text import slugify
+from microblogpub.app.utils.url import is_hostname_blocked
 
 AnyboxObject = models.InboxObject | models.OutboxObject
 

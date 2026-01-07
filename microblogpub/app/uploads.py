@@ -8,11 +8,11 @@ from PIL import Image
 from PIL import ImageOps
 from sqlalchemy import select
 
-from app import activitypub as ap
-from app import models
-from app.config import BASE_URL
-from app.config import ROOT_DIR
-from app.database import AsyncSession
+from microblogpub.app import activitypub as ap
+from microblogpub.app import models
+from microblogpub.app.config import BASE_URL
+from microblogpub.app.config import ROOT_DIR
+from microblogpub.app.database import AsyncSession
 
 UPLOAD_DIR = ROOT_DIR / "data" / "uploads"
 

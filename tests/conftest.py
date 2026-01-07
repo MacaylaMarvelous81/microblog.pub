@@ -4,11 +4,11 @@ import pytest
 import pytest_asyncio
 from fastapi.testclient import TestClient
 
-from app.database import Base
-from app.database import async_engine
-from app.database import async_session
-from app.database import engine
-from app.main import app
+from microblogpub.app.database import Base
+from microblogpub.app.database import async_engine
+from microblogpub.app.database import async_session
+from microblogpub.app.database import engine
+from microblogpub.app.main import app
 from tests.factories import _Session
 
 

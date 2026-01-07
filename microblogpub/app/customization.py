@@ -12,7 +12,7 @@ from loguru import logger
 from starlette.responses import JSONResponse
 
 if TYPE_CHECKING:
-    from app.ap_object import RemoteObject
+    from microblogpub.app.ap_object import RemoteObject
 
 
 _DATA_DIR = Path().parent.resolve() / "data"
@@ -77,11 +77,11 @@ class ActivityPubResponse(JSONResponse):
 
 
 def _custom_page_handler(path: str, html_page: HTMLPage) -> Any:
-    from app import templates
-    from app.actor import LOCAL_ACTOR
-    from app.config import is_activitypub_requested
-    from app.database import AsyncSession
-    from app.database import get_db_session
+    from microblogpub.app import templates
+    from microblogpub.app.actor import LOCAL_ACTOR
+    from microblogpub.app.config import is_activitypub_requested
+    from microblogpub.app.database import AsyncSession
+    from microblogpub.app.database import get_db_session
 
     async def _handler(
         request: Request,

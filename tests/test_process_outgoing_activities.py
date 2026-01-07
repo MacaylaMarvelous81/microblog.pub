@@ -6,14 +6,14 @@ import respx
 from fastapi.testclient import TestClient
 from sqlalchemy import select
 
-from app import models
-from app.actor import LOCAL_ACTOR
-from app.ap_object import RemoteObject
-from app.database import AsyncSession
-from app.outgoing_activities import _MAX_RETRIES
-from app.outgoing_activities import fetch_next_outgoing_activity
-from app.outgoing_activities import new_outgoing_activity
-from app.outgoing_activities import process_next_outgoing_activity
+from microblogpub.app import models
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.ap_object import RemoteObject
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.outgoing_activities import _MAX_RETRIES
+from microblogpub.app.outgoing_activities import fetch_next_outgoing_activity
+from microblogpub.app.outgoing_activities import new_outgoing_activity
+from microblogpub.app.outgoing_activities import process_next_outgoing_activity
 from tests import factories
 
 

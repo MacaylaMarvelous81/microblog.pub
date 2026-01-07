@@ -17,16 +17,16 @@ from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from app import config
-from app import models
-from app import templates
-from app.admin import user_session_or_redirect
-from app.config import verify_csrf_token
-from app.database import AsyncSession
-from app.database import get_db_session
-from app.redirect import redirect
-from app.utils import indieauth
-from app.utils.datetime import now
+from microblogpub.app import config
+from microblogpub.app import models
+from microblogpub.app import templates
+from microblogpub.app.admin import user_session_or_redirect
+from microblogpub.app.config import verify_csrf_token
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.database import get_db_session
+from microblogpub.app.redirect import redirect
+from microblogpub.app.utils import indieauth
+from microblogpub.app.utils.datetime import now
 
 basic_auth = HTTPBasic()
 

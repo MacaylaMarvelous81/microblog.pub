@@ -8,13 +8,13 @@ from sqlalchemy import not_
 from sqlalchemy import or_
 from sqlalchemy import select
 
-from app import activitypub as ap
-from app import models
-from app.config import BASE_URL
-from app.config import INBOX_RETENTION_DAYS
-from app.database import AsyncSession
-from app.database import async_session
-from app.utils.datetime import now
+from microblogpub.app import activitypub as ap
+from microblogpub.app import models
+from microblogpub.app.config import BASE_URL
+from microblogpub.app.config import INBOX_RETENTION_DAYS
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.database import async_session
+from microblogpub.app.utils.datetime import now
 
 
 async def prune_old_data(

@@ -5,8 +5,8 @@ from typing import TypeVar
 
 from loguru import logger
 
-from app.database import AsyncSession
-from app.database import async_session
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.database import async_session
 
 T = TypeVar("T")
 

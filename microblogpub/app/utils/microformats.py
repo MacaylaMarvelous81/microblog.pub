@@ -4,7 +4,7 @@ import httpx
 import mf2py  # type: ignore
 from loguru import logger
 
-from app import config
+from microblogpub.app import config
 
 
 class URLNotFoundOrGone(Exception):

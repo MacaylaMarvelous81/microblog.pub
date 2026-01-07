@@ -7,14 +7,14 @@ from loguru import logger
 from sqlalchemy import func
 from sqlalchemy import select
 
-from app import activitypub as ap
-from app import httpsig
-from app import ldsig
-from app import models
-from app.boxes import save_to_inbox
-from app.database import AsyncSession
-from app.utils.datetime import now
-from app.utils.workers import Worker
+from microblogpub.app import activitypub as ap
+from microblogpub.app import httpsig
+from microblogpub.app import ldsig
+from microblogpub.app import models
+from microblogpub.app.boxes import save_to_inbox
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.utils.datetime import now
+from microblogpub.app.utils.workers import Worker
 
 _MAX_RETRIES = 8
 

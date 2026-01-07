@@ -12,16 +12,16 @@ from loguru import logger
 from pebble import concurrent  # type: ignore
 from pydantic import BaseModel
 
-from app import activitypub as ap
-from app import ap_object
-from app import config
-from app.actor import LOCAL_ACTOR
-from app.actor import fetch_actor
-from app.database import AsyncSession
-from app.models import InboxObject
-from app.models import OutboxObject
-from app.utils.url import is_url_valid
-from app.utils.url import make_abs
+from microblogpub.app import activitypub as ap
+from microblogpub.app import ap_object
+from microblogpub.app import config
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.actor import fetch_actor
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.models import InboxObject
+from microblogpub.app.models import OutboxObject
+from microblogpub.app.utils.url import is_url_valid
+from microblogpub.app.utils.url import make_abs
 
 
 class OpenGraphMeta(BaseModel):

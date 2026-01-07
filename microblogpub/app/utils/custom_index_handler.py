@@ -6,10 +6,10 @@ from fastapi import Depends
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-from app.actor import LOCAL_ACTOR
-from app.config import is_activitypub_requested
-from app.database import AsyncSession
-from app.database import get_db_session
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.config import is_activitypub_requested
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.database import get_db_session
 
 _Handler = Callable[[Request, AsyncSession], Awaitable[Any]]
 

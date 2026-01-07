@@ -6,11 +6,11 @@ import httpx
 from bs4 import BeautifulSoup  # type: ignore
 from loguru import logger
 
-from app import config
-from app.utils.datetime import now
-from app.utils.url import check_url
-from app.utils.url import is_url_valid
-from app.utils.url import make_abs
+from microblogpub.app import config
+from microblogpub.app.utils.datetime import now
+from microblogpub.app.utils.url import check_url
+from microblogpub.app.utils.url import is_url_valid
+from microblogpub.app.utils.url import make_abs
 
 
 async def _discover_webmention_endoint(url: str) -> str | None:

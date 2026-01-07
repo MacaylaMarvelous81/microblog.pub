@@ -11,20 +11,20 @@ from loguru import logger
 from sqlalchemy import func
 from sqlalchemy import select
 
-from app import models
-from app.boxes import _get_outbox_announces_count
-from app.boxes import _get_outbox_likes_count
-from app.boxes import _get_outbox_replies_count
-from app.boxes import get_outbox_object_by_ap_id
-from app.boxes import get_outbox_object_by_slug_and_short_id
-from app.boxes import is_notification_enabled
-from app.database import AsyncSession
-from app.database import get_db_session
-from app.utils import microformats
-from app.utils.facepile import Face
-from app.utils.facepile import WebmentionReply
-from app.utils.url import check_url
-from app.utils.url import is_url_valid
+from microblogpub.app import models
+from microblogpub.app.boxes import _get_outbox_announces_count
+from microblogpub.app.boxes import _get_outbox_likes_count
+from microblogpub.app.boxes import _get_outbox_replies_count
+from microblogpub.app.boxes import get_outbox_object_by_ap_id
+from microblogpub.app.boxes import get_outbox_object_by_slug_and_short_id
+from microblogpub.app.boxes import is_notification_enabled
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.database import get_db_session
+from microblogpub.app.utils import microformats
+from microblogpub.app.utils.facepile import Face
+from microblogpub.app.utils.facepile import WebmentionReply
+from microblogpub.app.utils.url import check_url
+from microblogpub.app.utils.url import is_url_valid
 
 router = APIRouter()
 

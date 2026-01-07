@@ -6,13 +6,13 @@ from Crypto.PublicKey import RSA
 from dateutil.parser import isoparse
 from sqlalchemy import orm
 
-from app import activitypub as ap
-from app import actor
-from app import models
-from app.actor import RemoteActor
-from app.ap_object import RemoteObject
-from app.database import SessionLocal
-from app.utils.datetime import now
+from microblogpub.app import activitypub as ap
+from microblogpub.app import actor
+from microblogpub.app import models
+from microblogpub.app.actor import RemoteActor
+from microblogpub.app.ap_object import RemoteObject
+from microblogpub.app.database import SessionLocal
+from microblogpub.app.utils.datetime import now
 
 _Session = orm.scoped_session(SessionLocal)
 

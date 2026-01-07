@@ -2,7 +2,7 @@ from unittest import mock
 
 import pytest
 
-from app.utils.url import is_hostname_blocked
+from microblogpub.app.utils.url import is_hostname_blocked
 
 
 @pytest.mark.parametrize(

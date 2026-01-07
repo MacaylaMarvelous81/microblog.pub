@@ -5,8 +5,8 @@ from urllib.parse import urlparse
 
 from loguru import logger
 
-from app.config import BLOCKED_SERVERS
-from app.config import DEBUG
+from microblogpub.app.config import BLOCKED_SERVERS
+from microblogpub.app.config import DEBUG
 
 
 def make_abs(url: str | None, parent: str) -> str | None:

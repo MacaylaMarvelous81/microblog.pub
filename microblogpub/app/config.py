@@ -15,11 +15,11 @@ from itsdangerous import URLSafeTimedSerializer
 from loguru import logger
 from mistletoe import markdown  # type: ignore
 
-from app.customization import _CUSTOM_ROUTES
-from app.customization import _StreamVisibilityCallback
-from app.customization import default_stream_visibility_callback
-from app.utils.emoji import _load_emojis
-from app.utils.version import get_version_commit
+from microblogpub.app.customization import _CUSTOM_ROUTES
+from microblogpub.app.customization import _StreamVisibilityCallback
+from microblogpub.app.customization import default_stream_visibility_callback
+from microblogpub.app.utils.emoji import _load_emojis
+from microblogpub.app.utils.version import get_version_commit
 
 ROOT_DIR = Path().parent.resolve()
 
@@ -28,7 +28,7 @@ _CONFIG_FILE = os.getenv("MICROBLOGPUB_CONFIG_FILE", "profile.toml")
 VERSION_COMMIT = "dev"
 
 try:
-    from app._version import VERSION_COMMIT  # type: ignore
+    from microblogpub.app._version import VERSION_COMMIT  # type: ignore
 except ImportError:
     VERSION_COMMIT = get_version_commit()
 

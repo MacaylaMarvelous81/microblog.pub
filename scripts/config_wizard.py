@@ -9,7 +9,7 @@ import tomli_w
 from prompt_toolkit import prompt
 from prompt_toolkit.key_binding import KeyBindings
 
-from app.key import generate_key
+from microblogpub.app.key import generate_key
 
 _ROOT_DIR = Path().parent.resolve()
 _KEY_PATH = _ROOT_DIR / "data" / "key.pem"

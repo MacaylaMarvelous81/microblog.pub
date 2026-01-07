@@ -6,11 +6,11 @@ from typing import Optional
 
 from loguru import logger
 
-from app import media
-from app.models import InboxObject
-from app.models import Webmention
-from app.utils.datetime import parse_isoformat
-from app.utils.url import must_make_abs
+from microblogpub.app import media
+from microblogpub.app.models import InboxObject
+from microblogpub.app.models import Webmention
+from microblogpub.app.utils.datetime import parse_isoformat
+from microblogpub.app.utils.url import must_make_abs
 
 
 @dataclass

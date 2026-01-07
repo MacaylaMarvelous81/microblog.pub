@@ -11,14 +11,14 @@ from pygments.lexers import get_lexer_by_name as get_lexer  # type: ignore
 from pygments.util import ClassNotFound  # type: ignore
 from sqlalchemy import select
 
-from app import webfinger
-from app.config import BASE_URL
-from app.config import CODE_HIGHLIGHTING_THEME
-from app.database import AsyncSession
-from app.utils import emoji
+from microblogpub.app import webfinger
+from microblogpub.app.config import BASE_URL
+from microblogpub.app.config import CODE_HIGHLIGHTING_THEME
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.utils import emoji
 
 if typing.TYPE_CHECKING:
-    from app.actor import Actor
+    from microblogpub.app.actor import Actor
 
 _FORMATTER = HtmlFormatter(style=CODE_HIGHLIGHTING_THEME)
 _HASHTAG_REGEX = re.compile(r"(#[\d\w]+)")
@@ -120,8 +120,8 @@ async def _prefetch_mentioned_actors(
     db_session: AsyncSession,
     content: str,
 ) -> dict[str, "Actor"]:
-    from app import models
-    from app.actor import fetch_actor
+    from microblogpub.app import models
+    from microblogpub.app.actor import fetch_actor
 
     actors = {}
 

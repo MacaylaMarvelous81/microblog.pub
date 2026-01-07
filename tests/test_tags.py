@@ -2,9 +2,9 @@ from fastapi.testclient import TestClient
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import activitypub as ap
-from app import models
-from app.config import generate_csrf_token
+from microblogpub.app import activitypub as ap
+from microblogpub.app import models
+from microblogpub.app.config import generate_csrf_token
 from tests.utils import generate_admin_session_cookies
 
 

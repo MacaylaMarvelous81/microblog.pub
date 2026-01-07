@@ -21,14 +21,14 @@ from dateutil.parser import parse
 from loguru import logger
 from sqlalchemy import select
 
-from app import activitypub as ap
-from app import config
-from app.config import KEY_PATH
-from app.database import AsyncSession
-from app.database import get_db_session
-from app.key import Key
-from app.utils.datetime import now
-from app.utils.url import is_hostname_blocked
+from microblogpub.app import activitypub as ap
+from microblogpub.app import config
+from microblogpub.app.config import KEY_PATH
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.database import get_db_session
+from microblogpub.app.key import Key
+from microblogpub.app.utils.datetime import now
+from microblogpub.app.utils.url import is_hostname_blocked
 
 _KEY_CACHE: MutableMapping[str, Key] = LFUCache(256)
 
@@ -99,7 +99,7 @@ async def _get_public_key(
         return cached_key
 
     # Check if the key belongs to an actor already in DB
-    from app import models
+    from microblogpub.app import models
 
     existing_actor = (
         await db_session.scalars(
@@ -115,9 +115,9 @@ async def _get_public_key(
             return k
 
     # Fetch it
-    from app import activitypub as ap
-    from app.actor import RemoteActor
-    from app.actor import update_actor_if_needed
+    from microblogpub.app import activitypub as ap
+    from microblogpub.app.actor import RemoteActor
+    from microblogpub.app.actor import update_actor_if_needed
 
     # Without signing the request as if it's the first contact, the 2 servers
     # might race to fetch each other key
@@ -203,7 +203,7 @@ async def httpsig_checker(
     # HTTP requests trying to fetch an unavailable actor to verify the HTTP sig
     try:
         if request.method == "POST" and request.url.path.endswith("/inbox"):
-            from app import models  # TODO: solve this circular import
+            from microblogpub.app import models  # TODO: solve this circular import
 
             activity = json.loads(body)
             actor_id = ap.get_id(activity["actor"])

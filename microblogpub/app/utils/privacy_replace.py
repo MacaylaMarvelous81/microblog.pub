@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup  # type: ignore
 from loguru import logger
 
-from app.config import PRIVACY_REPLACE
+from microblogpub.app.config import PRIVACY_REPLACE
 
 
 def replace_content(content: str) -> str:

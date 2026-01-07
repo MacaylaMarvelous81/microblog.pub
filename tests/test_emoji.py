@@ -1,10 +1,10 @@
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from app import activitypub as ap
-from app import models
-from app.config import generate_csrf_token
-from app.utils.emoji import EMOJIS_BY_NAME
+from microblogpub.app import activitypub as ap
+from microblogpub.app import models
+from microblogpub.app.config import generate_csrf_token
+from microblogpub.app.utils.emoji import EMOJIS_BY_NAME
 from tests.utils import generate_admin_session_cookies
 
 

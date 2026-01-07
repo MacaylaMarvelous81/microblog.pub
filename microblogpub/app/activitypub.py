@@ -7,18 +7,18 @@ from typing import Any
 import httpx
 from loguru import logger
 
-from app import config
-from app.config import ALSO_KNOWN_AS
-from app.config import AP_CONTENT_TYPE  # noqa: F401
-from app.config import MOVED_TO
-from app.httpsig import auth
-from app.key import get_pubkey_as_pem
-from app.source import dedup_tags
-from app.source import hashtagify
-from app.utils.url import check_url
+from microblogpub.app import config
+from microblogpub.app.config import ALSO_KNOWN_AS
+from microblogpub.app.config import AP_CONTENT_TYPE  # noqa: F401
+from microblogpub.app.config import MOVED_TO
+from microblogpub.app.httpsig import auth
+from microblogpub.app.key import get_pubkey_as_pem
+from microblogpub.app.source import dedup_tags
+from microblogpub.app.source import hashtagify
+from microblogpub.app.utils.url import check_url
 
 if TYPE_CHECKING:
-    from app.actor import Actor
+    from microblogpub.app.actor import Actor
 
 RawObject = dict[str, Any]
 AS_CTX = "https://www.w3.org/ns/activitystreams"

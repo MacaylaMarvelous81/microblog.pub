@@ -76,7 +76,7 @@ def lint(ctx):
 @task
 def compile_scss(ctx, watch=False):
     # type: (Context, bool) -> None
-    from app.utils.favicon import build_favicon
+    from microblogpub.app.utils.favicon import build_favicon
 
     favicon_file = Path("data/favicon.ico")
     if not favicon_file.exists():
@@ -103,7 +103,7 @@ def uvicorn(ctx):
 @task
 def process_outgoing_activities(ctx):
     # type: (Context) -> None
-    from app.outgoing_activities import loop
+    from microblogpub.app.outgoing_activities import loop
 
     asyncio.run(loop())
 
@@ -111,7 +111,7 @@ def process_outgoing_activities(ctx):
 @task
 def process_incoming_activities(ctx):
     # type: (Context) -> None
-    from app.incoming_activities import loop
+    from microblogpub.app.incoming_activities import loop
 
     asyncio.run(loop())
 
@@ -194,14 +194,14 @@ def update(ctx, update_deps=True):
 @task
 def stats(ctx):
     # type: (Context) -> None
-    from app.utils.stats import print_stats
+    from microblogpub.app.utils.stats import print_stats
 
     print_stats()
 
 
 @contextmanager
 def embed_version() -> Generator[None, None, None]:
-    from app.utils.version import get_version_commit
+    from microblogpub.app.utils.version import get_version_commit
 
     version_file = Path("app/_version.py")
     version_file.unlink(missing_ok=True)
@@ -223,7 +223,7 @@ def build_docker_image(ctx):
 @task
 def prune_old_data(ctx):
     # type: (Context) -> None
-    from app.prune import run_prune_old_data
+    from microblogpub.app.prune import run_prune_old_data
 
     asyncio.run(run_prune_old_data())
 
@@ -235,8 +235,8 @@ def webfinger(ctx, account):
 
     from loguru import logger
 
-    from app.source import _MENTION_REGEX
-    from app.webfinger import get_actor_url
+    from microblogpub.app.source import _MENTION_REGEX
+    from microblogpub.app.webfinger import get_actor_url
 
     logger.disable("app")
     if not account.startswith("@"):
@@ -264,12 +264,12 @@ def move_to(ctx, moved_to):
 
     from loguru import logger
 
-    from app.actor import LOCAL_ACTOR
-    from app.actor import fetch_actor
-    from app.boxes import send_move
-    from app.database import async_session
-    from app.source import _MENTION_REGEX
-    from app.webfinger import get_actor_url
+    from microblogpub.app.actor import LOCAL_ACTOR
+    from microblogpub.app.actor import fetch_actor
+    from microblogpub.app.boxes import send_move
+    from microblogpub.app.database import async_session
+    from microblogpub.app.source import _MENTION_REGEX
+    from microblogpub.app.webfinger import get_actor_url
 
     logger.disable("app")
 
@@ -314,8 +314,8 @@ def self_destruct(ctx):
     # type: (Context) -> None
     from loguru import logger
 
-    from app.boxes import send_self_destruct
-    from app.database import async_session
+    from microblogpub.app.boxes import send_self_destruct
+    from microblogpub.app.database import async_session
 
     logger.disable("app")
 
@@ -341,7 +341,7 @@ def yunohost_config(
     password,
 ):
     # type: (Context, str, str, str, str, str) -> None
-    from app.utils import yunohost
+    from microblogpub.app.utils import yunohost
 
     yunohost.setup_config_file(
         domain=domain,
@@ -378,7 +378,7 @@ def check_config(ctx):
     logger.disable("app")
 
     try:
-        from app import config  # noqa: F401
+        from microblogpub.app import config  # noqa: F401
     except Exception as exc:
         print("Config error, please fix data/profile.toml:\n")
         print("".join(traceback.format_exception(exc)))
@@ -392,10 +392,10 @@ def import_mastodon_following_accounts(ctx, path):
     # type: (Context, str) -> None
     from loguru import logger
 
-    from app.boxes import _get_following
-    from app.boxes import _send_follow
-    from app.database import async_session
-    from app.utils.mastodon import get_actor_urls_from_following_accounts_csv_file
+    from microblogpub.app.boxes import _get_following
+    from microblogpub.app.boxes import _send_follow
+    from microblogpub.app.database import async_session
+    from microblogpub.app.utils.mastodon import get_actor_urls_from_following_accounts_csv_file
 
     async def _import_following() -> int:
         count = 0

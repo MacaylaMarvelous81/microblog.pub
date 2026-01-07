@@ -3,7 +3,7 @@ import typing
 import starlette
 from fastapi.testclient import TestClient
 
-from app.main import app
+from microblogpub.app.main import app
 
 
 def test_admin_endpoints_are_authenticated(client: TestClient) -> None:

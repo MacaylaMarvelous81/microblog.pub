@@ -13,18 +13,18 @@ from sqlalchemy import func
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from app import activitypub as ap
-from app import config
-from app import ldsig
-from app import models
-from app.actor import LOCAL_ACTOR
-from app.actor import _actor_hash
-from app.config import KEY_PATH
-from app.database import AsyncSession
-from app.key import Key
-from app.utils.datetime import now
-from app.utils.url import check_url
-from app.utils.workers import Worker
+from microblogpub.app import activitypub as ap
+from microblogpub.app import config
+from microblogpub.app import ldsig
+from microblogpub.app import models
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.actor import _actor_hash
+from microblogpub.app.config import KEY_PATH
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.key import Key
+from microblogpub.app.utils.datetime import now
+from microblogpub.app.utils.url import check_url
+from microblogpub.app.utils.workers import Worker
 
 _MAX_RETRIES = 16
 
@@ -66,10 +66,10 @@ async def _send_actor_update_if_needed(
 
     logger.info("Will send an Update for the local actor")
 
-    from app.boxes import allocate_outbox_id
-    from app.boxes import compute_all_known_recipients
-    from app.boxes import outbox_object_id
-    from app.boxes import save_outbox_object
+    from microblogpub.app.boxes import allocate_outbox_id
+    from microblogpub.app.boxes import compute_all_known_recipients
+    from microblogpub.app.boxes import outbox_object_id
+    from microblogpub.app.boxes import save_outbox_object
 
     update_activity_id = allocate_outbox_id()
     update_activity = {

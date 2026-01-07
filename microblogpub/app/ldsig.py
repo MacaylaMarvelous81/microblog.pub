@@ -9,12 +9,12 @@ from Crypto.Signature import PKCS1_v1_5
 from loguru import logger
 from pyld import jsonld  # type: ignore
 
-from app import activitypub as ap
-from app.database import AsyncSession
-from app.httpsig import _get_public_key
+from microblogpub.app import activitypub as ap
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.httpsig import _get_public_key
 
 if typing.TYPE_CHECKING:
-    from app.key import Key
+    from microblogpub.app.key import Key
 
 
 requests_loader = pyld.documentloader.requests.requests_document_loader()

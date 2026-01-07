@@ -15,9 +15,9 @@ from pygments.formatters import HtmlFormatter  # type: ignore
 from pygments.lexers import get_lexer_by_name as get_lexer  # type: ignore
 from pygments.lexers import guess_lexer  # type: ignore
 
-from app.config import VERSION
-from app.source import CustomRenderer
-from app.utils.datetime import now
+from microblogpub.app.config import VERSION
+from microblogpub.app.source import CustomRenderer
+from microblogpub.app.utils.datetime import now
 
 _FORMATTER = HtmlFormatter()
 _FORMATTER.noclasses = True

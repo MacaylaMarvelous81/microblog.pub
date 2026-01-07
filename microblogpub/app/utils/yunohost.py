@@ -7,7 +7,7 @@ from typing import Any
 import bcrypt
 import tomli_w
 
-from app.key import generate_key
+from microblogpub.app.key import generate_key
 
 _ROOT_DIR = Path().parent.parent.resolve()
 _KEY_PATH = _ROOT_DIR / "data" / "key.pem"

@@ -8,10 +8,10 @@ from sqlalchemy import func
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import activitypub as ap
-from app import models
-from app.actor import LOCAL_ACTOR
-from app.ap_object import RemoteObject
+from microblogpub.app import activitypub as ap
+from microblogpub.app import models
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.ap_object import RemoteObject
 from tests import factories
 from tests.utils import mock_httpsig_checker
 from tests.utils import run_process_next_incoming_activity

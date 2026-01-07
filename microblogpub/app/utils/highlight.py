@@ -8,7 +8,7 @@ from pygments.formatters import HtmlFormatter  # type: ignore
 from pygments.lexers import get_lexer_by_name  # type: ignore
 from pygments.lexers import guess_lexer  # type: ignore
 
-from app.config import CODE_HIGHLIGHTING_THEME
+from microblogpub.app.config import CODE_HIGHLIGHTING_THEME
 
 _FORMATTER = HtmlFormatter(style=CODE_HIGHLIGHTING_THEME)
 

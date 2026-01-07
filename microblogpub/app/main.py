@@ -42,44 +42,44 @@ from starlette.responses import JSONResponse
 from starlette.types import Message
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware  # type: ignore
 
-from app import activitypub as ap
-from app import admin
-from app import boxes
-from app import config
-from app import httpsig
-from app import indieauth
-from app import media
-from app import micropub
-from app import models
-from app import templates
-from app import webmentions
-from app.actor import LOCAL_ACTOR
-from app.actor import get_actors_metadata
-from app.boxes import public_outbox_objects_count
-from app.config import BASE_URL
-from app.config import DEBUG
-from app.config import DOMAIN
-from app.config import ID
-from app.config import USER_AGENT
-from app.config import USERNAME
-from app.config import WEBFINGER_DOMAIN
-from app.config import is_activitypub_requested
-from app.config import verify_csrf_token
-from app.customization import get_custom_router
-from app.database import AsyncSession
-from app.database import async_session
-from app.database import get_db_session
-from app.incoming_activities import new_ap_incoming_activity
-from app.templates import is_current_user_admin
-from app.uploads import UPLOAD_DIR
-from app.utils import pagination
-from app.utils.emoji import EMOJIS_BY_NAME
-from app.utils.facepile import Face
-from app.utils.facepile import WebmentionReply
-from app.utils.facepile import merge_faces
-from app.utils.highlight import HIGHLIGHT_CSS_HASH
-from app.utils.url import check_url
-from app.webfinger import get_remote_follow_template
+from microblogpub.app import activitypub as ap
+from microblogpub.app import admin
+from microblogpub.app import boxes
+from microblogpub.app import config
+from microblogpub.app import httpsig
+from microblogpub.app import indieauth
+from microblogpub.app import media
+from microblogpub.app import micropub
+from microblogpub.app import models
+from microblogpub.app import templates
+from microblogpub.app import webmentions
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.actor import get_actors_metadata
+from microblogpub.app.boxes import public_outbox_objects_count
+from microblogpub.app.config import BASE_URL
+from microblogpub.app.config import DEBUG
+from microblogpub.app.config import DOMAIN
+from microblogpub.app.config import ID
+from microblogpub.app.config import USER_AGENT
+from microblogpub.app.config import USERNAME
+from microblogpub.app.config import WEBFINGER_DOMAIN
+from microblogpub.app.config import is_activitypub_requested
+from microblogpub.app.config import verify_csrf_token
+from microblogpub.app.customization import get_custom_router
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.database import async_session
+from microblogpub.app.database import get_db_session
+from microblogpub.app.incoming_activities import new_ap_incoming_activity
+from microblogpub.app.templates import is_current_user_admin
+from microblogpub.app.uploads import UPLOAD_DIR
+from microblogpub.app.utils import pagination
+from microblogpub.app.utils.emoji import EMOJIS_BY_NAME
+from microblogpub.app.utils.facepile import Face
+from microblogpub.app.utils.facepile import WebmentionReply
+from microblogpub.app.utils.facepile import merge_faces
+from microblogpub.app.utils.highlight import HIGHLIGHT_CSS_HASH
+from microblogpub.app.utils.url import check_url
+from microblogpub.app.webfinger import get_remote_follow_template
 
 # Only images <1MB will be cached, so 32MB of data will be cached
 _RESIZED_CACHE: MutableMapping[tuple[str, int], tuple[bytes, str, Any]] = LFUCache(32)

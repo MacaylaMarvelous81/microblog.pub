@@ -7,18 +7,18 @@ import fastapi
 import httpx
 import respx
 
-from app import activitypub as ap
-from app import actor
-from app import httpsig
-from app import models
-from app.actor import LOCAL_ACTOR
-from app.ap_object import RemoteObject
-from app.config import session_serializer
-from app.database import AsyncSession
-from app.database import async_session
-from app.incoming_activities import fetch_next_incoming_activity
-from app.incoming_activities import process_next_incoming_activity
-from app.main import app
+from microblogpub.app import activitypub as ap
+from microblogpub.app import actor
+from microblogpub.app import httpsig
+from microblogpub.app import models
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.ap_object import RemoteObject
+from microblogpub.app.config import session_serializer
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.database import async_session
+from microblogpub.app.incoming_activities import fetch_next_incoming_activity
+from microblogpub.app.incoming_activities import process_next_incoming_activity
+from microblogpub.app.main import app
 from tests import factories
 
 

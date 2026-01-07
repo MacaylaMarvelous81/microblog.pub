@@ -11,18 +11,18 @@ from loguru import logger
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from app import activitypub as ap
-from app import media
-from app.config import BASE_URL
-from app.config import USER_AGENT
-from app.config import USERNAME
-from app.config import WEBFINGER_DOMAIN
-from app.database import AsyncSession
-from app.utils.datetime import as_utc
-from app.utils.datetime import now
+from microblogpub.app import activitypub as ap
+from microblogpub.app import media
+from microblogpub.app.config import BASE_URL
+from microblogpub.app.config import USER_AGENT
+from microblogpub.app.config import USERNAME
+from microblogpub.app.config import WEBFINGER_DOMAIN
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.utils.datetime import as_utc
+from microblogpub.app.utils.datetime import now
 
 if typing.TYPE_CHECKING:
-    from app.models import Actor as ActorModel
+    from microblogpub.app.models import Actor as ActorModel
 
 
 def _handle(raw_actor: ap.RawObject) -> str:
@@ -211,7 +211,7 @@ LOCAL_ACTOR = RemoteActor(ap_actor=ap.ME, handle=f"@{USERNAME}@{WEBFINGER_DOMAIN
 
 
 async def save_actor(db_session: AsyncSession, ap_actor: ap.RawObject) -> "ActorModel":
-    from app import models
+    from microblogpub.app import models
 
     if ap_type := ap_actor.get("type") not in ap.ACTOR_TYPES:
         raise ValueError(f"Invalid type {ap_type} for actor {ap_actor}")
@@ -235,7 +235,7 @@ async def fetch_actor(
 ) -> "ActorModel":
     if actor_id == LOCAL_ACTOR.ap_id:
         raise ValueError("local actor should not be fetched")
-    from app import models
+    from microblogpub.app import models
 
     existing_actor = (
         await db_session.scalars(
@@ -327,7 +327,7 @@ async def get_actors_metadata(
     db_session: AsyncSession,
     actors: list[Union["ActorModel", "RemoteActor"]],
 ) -> ActorsMetadata:
-    from app import models
+    from microblogpub.app import models
 
     ap_actor_ids = [actor.ap_id for actor in actors]
     followers = {

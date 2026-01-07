@@ -8,14 +8,14 @@ import pydantic
 from bs4 import BeautifulSoup  # type: ignore
 from mistletoe import markdown  # type: ignore
 
-from app import activitypub as ap
-from app.actor import LOCAL_ACTOR
-from app.actor import Actor
-from app.actor import RemoteActor
-from app.config import ID
-from app.media import proxied_media_url
-from app.utils.datetime import now
-from app.utils.datetime import parse_isoformat
+from microblogpub.app import activitypub as ap
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.actor import Actor
+from microblogpub.app.actor import RemoteActor
+from microblogpub.app.config import ID
+from microblogpub.app.media import proxied_media_url
+from microblogpub.app.utils.datetime import now
+from microblogpub.app.utils.datetime import parse_isoformat
 
 
 class Object:

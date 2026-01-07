@@ -21,16 +21,16 @@ from sqlalchemy import text
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import relationship
 
-from app import activitypub as ap
-from app.actor import LOCAL_ACTOR
-from app.actor import Actor as BaseActor
-from app.ap_object import Attachment
-from app.ap_object import Object as BaseObject
-from app.config import BASE_URL
-from app.database import Base
-from app.database import metadata_obj
-from app.utils import webmentions
-from app.utils.datetime import now
+from microblogpub.app import activitypub as ap
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.actor import Actor as BaseActor
+from microblogpub.app.ap_object import Attachment
+from microblogpub.app.ap_object import Object as BaseObject
+from microblogpub.app.config import BASE_URL
+from microblogpub.app.database import Base
+from microblogpub.app.database import metadata_obj
+from microblogpub.app.utils import webmentions
+from microblogpub.app.utils.datetime import now
 
 
 class ObjectRevision(pydantic.BaseModel):

@@ -27,8 +27,8 @@ def upgrade() -> None:
     # ### end Alembic commands ###
 
     # Backfill the slug for existing articles
-    from app.models import OutboxObject
-    from app.utils.text import slugify
+    from microblogpub.app.models import OutboxObject
+    from microblogpub.app.utils.text import slugify
     sess = Session(op.get_bind())
     articles = sess.execute(select(OutboxObject).where(
         OutboxObject.ap_type == "Article")

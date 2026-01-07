@@ -8,14 +8,14 @@ from fastapi.responses import JSONResponse
 from fastapi.responses import RedirectResponse
 from loguru import logger
 
-from app import activitypub as ap
-from app.boxes import get_outbox_object_by_ap_id
-from app.boxes import send_create
-from app.boxes import send_delete
-from app.database import AsyncSession
-from app.database import get_db_session
-from app.indieauth import AccessTokenInfo
-from app.indieauth import verify_access_token
+from microblogpub.app import activitypub as ap
+from microblogpub.app.boxes import get_outbox_object_by_ap_id
+from microblogpub.app.boxes import send_create
+from microblogpub.app.boxes import send_delete
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.database import get_db_session
+from microblogpub.app.indieauth import AccessTokenInfo
+from microblogpub.app.indieauth import verify_access_token
 
 router = APIRouter()
 

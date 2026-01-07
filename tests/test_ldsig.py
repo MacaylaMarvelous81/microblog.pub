@@ -4,10 +4,10 @@ import httpx
 import pytest
 from respx import MockRouter
 
-from app import activitypub as ap
-from app import ldsig
-from app.database import AsyncSession
-from app.key import Key
+from microblogpub.app import activitypub as ap
+from microblogpub.app import ldsig
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.key import Key
 from tests import factories
 
 _SAMPLE_CREATE = {

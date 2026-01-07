@@ -19,31 +19,31 @@ from sqlalchemy import or_
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from app import activitypub as ap
-from app import boxes
-from app import models
-from app import templates
-from app.actor import LOCAL_ACTOR
-from app.actor import fetch_actor
-from app.actor import get_actors_metadata
-from app.boxes import get_inbox_object_by_ap_id
-from app.boxes import get_outbox_object_by_ap_id
-from app.boxes import send_block
-from app.boxes import send_follow
-from app.boxes import send_unblock
-from app.config import EMOJIS
-from app.config import SESSION_TIMEOUT
-from app.config import generate_csrf_token
-from app.config import session_serializer
-from app.config import verify_csrf_token
-from app.config import verify_password
-from app.database import AsyncSession
-from app.database import get_db_session
-from app.lookup import lookup
-from app.templates import is_current_user_admin
-from app.uploads import save_upload
-from app.utils import pagination
-from app.utils.emoji import EMOJIS_BY_NAME
+from microblogpub.app import activitypub as ap
+from microblogpub.app import boxes
+from microblogpub.app import models
+from microblogpub.app import templates
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.actor import fetch_actor
+from microblogpub.app.actor import get_actors_metadata
+from microblogpub.app.boxes import get_inbox_object_by_ap_id
+from microblogpub.app.boxes import get_outbox_object_by_ap_id
+from microblogpub.app.boxes import send_block
+from microblogpub.app.boxes import send_follow
+from microblogpub.app.boxes import send_unblock
+from microblogpub.app.config import EMOJIS
+from microblogpub.app.config import SESSION_TIMEOUT
+from microblogpub.app.config import generate_csrf_token
+from microblogpub.app.config import session_serializer
+from microblogpub.app.config import verify_csrf_token
+from microblogpub.app.config import verify_password
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.database import get_db_session
+from microblogpub.app.lookup import lookup
+from microblogpub.app.templates import is_current_user_admin
+from microblogpub.app.uploads import save_upload
+from microblogpub.app.utils import pagination
+from microblogpub.app.utils.emoji import EMOJIS_BY_NAME
 
 
 async def user_session_or_redirect(
@@ -924,7 +924,7 @@ async def admin_actions_force_delete_webmention(
     logger.info(f"Deleting {webmention_id}")
     webmention.is_deleted = True
     await db_session.flush()
-    from app.webmentions import _handle_webmention_side_effects
+    from microblogpub.app.webmentions import _handle_webmention_side_effects
 
     await _handle_webmention_side_effects(
         db_session, webmention, webmention.outbox_object

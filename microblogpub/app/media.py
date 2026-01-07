@@ -1,8 +1,8 @@
 import base64
 import time
 
-from app.config import BASE_URL
-from app.config import hmac_sha256
+from microblogpub.app.config import BASE_URL
+from microblogpub.app.config import hmac_sha256
 
 SUPPORTED_RESIZE = [50, 740]
 EXPIRY_PERIOD = 86400

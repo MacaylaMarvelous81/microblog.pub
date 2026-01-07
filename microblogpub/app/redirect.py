@@ -1,7 +1,7 @@
 from fastapi import Request
 
-from app import templates
-from app.database import AsyncSession
+from microblogpub.app import templates
+from microblogpub.app.database import AsyncSession
 
 
 async def redirect(

@@ -2,7 +2,7 @@ from pathlib import Path
 
 from loguru import logger
 
-from app.webfinger import get_actor_url
+from microblogpub.app.webfinger import get_actor_url
 
 
 def _load_mastodon_following_accounts_csv_file(path: str) -> list[str]:

@@ -18,26 +18,26 @@ from sqlalchemy import func
 from sqlalchemy import select
 from starlette.templating import _TemplateResponse as TemplateResponse
 
-from app import activitypub as ap
-from app import config
-from app import models
-from app.actor import LOCAL_ACTOR
-from app.ap_object import Attachment
-from app.ap_object import Object
-from app.config import BASE_URL
-from app.config import CUSTOM_FOOTER
-from app.config import DEBUG
-from app.config import SESSION_TIMEOUT
-from app.config import VERSION
-from app.config import generate_csrf_token
-from app.config import session_serializer
-from app.database import AsyncSession
-from app.media import proxied_media_url
-from app.utils import privacy_replace
-from app.utils.datetime import now
-from app.utils.highlight import HIGHLIGHT_CSS
-from app.utils.highlight import highlight
-from app.utils.text import clean_if
+from microblogpub.app import activitypub as ap
+from microblogpub.app import config
+from microblogpub.app import models
+from microblogpub.app.actor import LOCAL_ACTOR
+from microblogpub.app.ap_object import Attachment
+from microblogpub.app.ap_object import Object
+from microblogpub.app.config import BASE_URL
+from microblogpub.app.config import CUSTOM_FOOTER
+from microblogpub.app.config import DEBUG
+from microblogpub.app.config import SESSION_TIMEOUT
+from microblogpub.app.config import VERSION
+from microblogpub.app.config import generate_csrf_token
+from microblogpub.app.config import session_serializer
+from microblogpub.app.database import AsyncSession
+from microblogpub.app.media import proxied_media_url
+from microblogpub.app.utils import privacy_replace
+from microblogpub.app.utils.datetime import now
+from microblogpub.app.utils.highlight import HIGHLIGHT_CSS
+from microblogpub.app.utils.highlight import highlight
+from microblogpub.app.utils.text import clean_if
 
 _templates = Jinja2Templates(
     directory=["data/templates", "app/templates"],  # type: ignore  # bad typing
