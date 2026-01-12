@@ -13,6 +13,8 @@ from bs4 import BeautifulSoup  # type: ignore
 from dateutil.parser import parse
 from fastapi import Request
 from fastapi.templating import Jinja2Templates
+from jinja2 import Environment
+from jinja2 import FileSystemLoader
 from loguru import logger
 from sqlalchemy import func
 from sqlalchemy import select
@@ -39,10 +41,15 @@ from app.utils.highlight import HIGHLIGHT_CSS
 from app.utils.highlight import highlight
 from app.utils.text import clean_if
 
-_templates = Jinja2Templates(
-    directory=["data/templates", "app/templates"],  # type: ignore  # bad typing
+_jinja_loader = FileSystemLoader(["data/templates", "app/templates"])
+_jinja_env = Environment(
+    loader=_jinja_loader,
+    autoescape=True,
     trim_blocks=True,
     lstrip_blocks=True,
+)
+_templates = Jinja2Templates(
+    env=_jinja_env,
 )
 
 
@@ -96,9 +103,9 @@ async def render_template(
     is_admin = is_current_user_admin(request)
 
     return _templates.TemplateResponse(
+        request,
         template,
         {
-            "request": request,
             "debug": DEBUG,
             "microblogpub_version": VERSION,
             "is_admin": is_admin,

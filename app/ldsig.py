@@ -2,6 +2,7 @@ import base64
 import hashlib
 import typing
 from datetime import datetime
+from datetime import timezone
 
 import pyld  # type: ignore
 from Crypto.Hash import SHA256
@@ -84,7 +85,7 @@ def generate_signature(doc: ap.RawObject, key: "Key") -> None:
     options = {
         "type": "RsaSignature2017",
         "creator": doc["actor"] + "#main-key",
-        "created": datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+        "created": datetime.now(timezone.utc).replace(microsecond=0).isoformat() + "Z",
     }
     doc["signature"] = options
     to_be_signed = _options_hash(doc) + _doc_hash(doc)

@@ -276,9 +276,7 @@ def _to_camel(string: str) -> str:
 
 
 class BaseModel(pydantic.BaseModel):
-    class Config:
-        alias_generator = _to_camel
-
+    model_config = pydantic.ConfigDict(alias_generator = _to_camel)
 
 class Attachment(BaseModel):
     type: str

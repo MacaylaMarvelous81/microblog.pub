@@ -323,7 +323,7 @@ class HTTPXSigAuth(httpx.Auth):
             bh.update(r.content)
             bodydigest = "SHA-256=" + base64.b64encode(bh.digest()).decode("utf-8")
 
-        date = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
+        date = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
         r.headers["Date"] = date
         if bodydigest:
             r.headers["Digest"] = bodydigest
