@@ -112,13 +112,15 @@ async def render_template(
             "csrf_token": generate_csrf_token(),
             "highlight_css": HIGHLIGHT_CSS,
             "visibility_enum": ap.VisibilityEnum,
-            "notifications_count": await db_session.scalar(
-                select(func.count(models.Notification.id)).where(
-                    models.Notification.is_new.is_(True)
+            "notifications_count": (
+                await db_session.scalar(
+                    select(func.count(models.Notification.id)).where(
+                        models.Notification.is_new.is_(True)
+                    )
                 )
-            )
-            if is_admin
-            else 0,
+                if is_admin
+                else 0
+            ),
             "articles_count": await db_session.scalar(
                 select(func.count(models.OutboxObject.id)).where(
                     models.OutboxObject.visibility == ap.VisibilityEnum.PUBLIC,
@@ -352,15 +354,16 @@ def _clean_html_wm(html: str) -> str:
         strip=True,
     )
 
+
 def _has_disallowed_tags(note: Object) -> bool:
     if note.is_from_outbox:
         return False
-    
+
     html = note.content
     if html is None:
         logger.error(f"{html=}")
         return False
-    
+
     soup = BeautifulSoup(html, "html.parser")
     for tag in soup.find_all(True):
         if tag.name not in ALLOWED_TAGS:
@@ -417,6 +420,7 @@ def _html2text(content: str) -> str:
 
 def _replace_emoji(u: str, _) -> str:
     return u
+
 
 def _emojify(text: str, is_local: bool) -> str:
     if not is_local:

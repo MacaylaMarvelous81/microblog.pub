@@ -62,7 +62,8 @@ async def user_session_or_redirect(
     _RedirectToLoginPage = HTTPException(
         status_code=302,
         headers={
-            "Location": str(request.url_for("login")) + f"?redirect={quote(redirect_url)}"
+            "Location": str(request.url_for("login"))
+            + f"?redirect={quote(redirect_url)}"
         },
     )
 
@@ -105,7 +106,7 @@ async def get_lookup(
             error = ap.FetchErrorTypeEnum.TIMEOUT
         except (ap.ObjectNotFoundError, ap.ObjectIsGoneError):
             error = ap.FetchErrorTypeEnum.NOT_FOUND
-        except (ap.ObjectUnavailableError):
+        except ap.ObjectUnavailableError:
             error = ap.FetchErrorTypeEnum.UNAUHTORIZED
         except Exception:
             logger.exception(f"Failed to lookup {query}")
@@ -1228,7 +1229,7 @@ async def admin_actions_new(
             poll_duration_in_minutes=poll_duration_in_minutes,
             name=name,
         )
-    
+
     return RedirectResponse(
         request.url_for("outbox_by_public_id", public_id=public_id),
         status_code=302,

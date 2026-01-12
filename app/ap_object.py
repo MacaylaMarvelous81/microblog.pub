@@ -119,9 +119,11 @@ class Object:
                 Attachment.parse_obj(
                     {
                         "proxiedUrl": proxied_url,
-                        "resizedUrl": proxied_url + "/740"
-                        if obj.get("mediaType", "").startswith("image")
-                        else None,
+                        "resizedUrl": (
+                            proxied_url + "/740"
+                            if obj.get("mediaType", "").startswith("image")
+                            else None
+                        ),
                         **obj,
                     }
                 )
@@ -276,7 +278,8 @@ def _to_camel(string: str) -> str:
 
 
 class BaseModel(pydantic.BaseModel):
-    model_config = pydantic.ConfigDict(alias_generator = _to_camel)
+    model_config = pydantic.ConfigDict(alias_generator=_to_camel)
+
 
 class Attachment(BaseModel):
     type: str

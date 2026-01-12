@@ -39,7 +39,9 @@ async def well_known_authorization_server(
 ) -> dict[str, Any]:
     return {
         "issuer": config.ID + "/",
-        "authorization_endpoint": str(request.url_for("indieauth_authorization_endpoint")),
+        "authorization_endpoint": str(
+            request.url_for("indieauth_authorization_endpoint")
+        ),
         "token_endpoint": str(request.url_for("indieauth_token_endpoint")),
         "code_challenge_methods_supported": ["S256"],
         "revocation_endpoint": str(request.url_for("indieauth_revocation_endpoint")),
@@ -67,9 +69,11 @@ async def oauth_registration_endpoint(
 
     client = models.OAuthClient(
         client_name=register_client_request.client_name,
-        redirect_uris=[register_client_request.redirect_uris]
-        if isinstance(register_client_request.redirect_uris, str)
-        else register_client_request.redirect_uris,
+        redirect_uris=(
+            [register_client_request.redirect_uris]
+            if isinstance(register_client_request.redirect_uris, str)
+            else register_client_request.redirect_uris
+        ),
         client_uri=register_client_request.client_uri,
         logo_uri=register_client_request.logo_uri,
         scope=register_client_request.scope,

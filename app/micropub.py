@@ -5,7 +5,6 @@ from fastapi import Depends
 from fastapi import Request
 from fastapi import Response
 from fastapi.responses import JSONResponse
-from fastapi.responses import RedirectResponse
 from loguru import logger
 
 from app import activitypub as ap
