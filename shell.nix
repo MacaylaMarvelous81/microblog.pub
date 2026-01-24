@@ -3,7 +3,7 @@
 }:
 (pkgs.buildFHSEnv {
   name = "microblogpub-dev-env";
-  targetPkgs = pkgs: (with pkgs; [ python3 poetry ]);
+  targetPkgs = pkgs: (with pkgs; [ python3 poetry dart-sass ]);
   extraInstallCommands = ''
     poetry sync
   '';

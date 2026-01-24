@@ -89,9 +89,9 @@ def compile_scss(ctx, watch=False):
         theme_file.write_text("// override vars for theming here")
 
     if watch:
-        run("boussole watch", echo=True)
+        run("sass --watch app/scss:app/static/css", echo=True)
     else:
-        run("boussole compile", echo=True)
+        run("sass --update app/scss:app/static/css", echo=True)
 
 
 @task
