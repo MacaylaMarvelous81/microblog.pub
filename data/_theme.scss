@@ -1,7 +1,17 @@
 // override vars for theming here
+$background: fixed no-repeat url("/static/banners/hole.jpg");
 $font-stack: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-$text-color: #0f172a;
-$primary-color: #f43f5e;
+$text-color: #fff;
+// $primary-color: #f43f5e;
+$primary-color: #d4af37;
 $secondary-color: #f97316;
-$muted-color: #64748b;
+$form-background-color: #64748b80;
+// $form-text-color: #d4af37;
+$form-text-color: #fff;
+$muted-color: #ffffff80;
 $base-font-size: 16px;
+
+main {
+  background: #00000080;
+  padding: 15px;
+}
